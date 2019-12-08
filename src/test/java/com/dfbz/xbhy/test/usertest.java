@@ -22,7 +22,7 @@ public class usertest {
     public void testuser(){
 //        System.out.println(userMapper.LookUser("东"));
         HashMap<String, Object> o = new HashMap<>();
-        o.put("realName", "东");
+        o.put("realName", "");
         PageInfo<User> userPageInfo = userService.LookUser(o);
         System.out.println(userPageInfo);
     }
