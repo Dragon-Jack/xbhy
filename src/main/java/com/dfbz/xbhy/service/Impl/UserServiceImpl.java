@@ -1,6 +1,7 @@
 package com.dfbz.xbhy.service.Impl;
 
 import com.dfbz.xbhy.entity.User;
+import com.dfbz.xbhy.mapper.UserFocusMapper;
 import com.dfbz.xbhy.mapper.UserMapper;
 import com.dfbz.xbhy.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,8 @@ import java.util.Map;
 public class UserServiceImpl extends TserviceImpi<User> implements UserService {
     @Autowired
     UserMapper userMapper;
-
+    @Autowired
+    UserFocusMapper focusMapper;
 
     @Override
     public PageInfo<User> LookUser(Map<String, Object> params) {
@@ -41,6 +44,7 @@ public class UserServiceImpl extends TserviceImpi<User> implements UserService {
         user = userMapper.selectByPrimaryKey(id);
         String integer = userMapper.FocusNum(id);
         user.setFocus(integer);
+
         return user;
     }
 }

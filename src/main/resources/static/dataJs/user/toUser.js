@@ -11,7 +11,7 @@ let vm = new Vue({
 
             }).then(resp=> {
                 this.appVersion=resp.data;
-
+                console.log(this.appVersion);
             }).catch(function (e) {
                 console.log(e)
             })
@@ -21,6 +21,5 @@ let vm = new Vue({
     },
     created: function () {
         this.appVersion=parent.layer.appVersion
-        this.lookUser();//在vue创建后调用函数返回数据
     }
 });

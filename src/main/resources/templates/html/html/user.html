@@ -69,10 +69,10 @@
                         <td>{{u.age}}</td>
                         <td>{{u.desc}}</td>
                         <td>
-                            <input type="button" v-if="u.isSecret!=0" @click="toLookUser(u.id)" value="详细信息" class="btn-xs btn-primary userDetail">
+                            <input type="button" v-if="u.isSecret==1" @click="toLookUser(u.id)" value="详细信息" class="btn-xs btn-primary userDetail">
                         </td>
                         <td>
-                            <input type="checkbox" class="checkbox-template">
+                            <input type="checkbox" @click="" class="checkbox-template">
                         </td>
                     </tr>
                     </tbody>
@@ -85,11 +85,11 @@
 
     <div>
         <div class="pagination no-margin pull-right clearfix">
-            <li class="prev"><a @click="lookUser(1,pageInfo.pageSize)">首页</a></li>
+            <li class="prev"><a @click="lookUser(1,pageInfo.pageSize)" v-if="pageInfo.pageNum!=1">首页</a></li>
             <li ><a @click="lookUser(pageInfo.prePage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=1">上一页</a></li>
             <li :class="num==pageInfo.pageNum?'active':''" v-for="num in pageInfo.navigatepageNums"><a @click="lookUser(num,pageInfo.pageSize)">{{num}}</a></li>
             <li :class="pageInfo.pageNum==pageInfo.pages?'next disabled': 'next'"><a @click="lookUser(pageInfo.nextPage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=pageInfo.pages">下一页</a></li>
-            <li class="next"><a @click="lookUser(pageInfo.pages,pageInfo.pageSize)">尾页</a></li>
+            <li class="next"><a @click="lookUser(pageInfo.pages,pageInfo.pageSize)" v-if="pageInfo.pageNum!=pageInfo.pages">尾页</a></li>
         </div>
 
     </div>

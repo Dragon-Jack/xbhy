@@ -99,7 +99,16 @@ public class User {
 
     @Transient
     private String focus;
+    @Transient
+    private String attention;
 
+    public String getAttention() {
+        return attention;
+    }
+
+    public void setAttention(String attention) {
+        this.attention = attention;
+    }
 
     public String getFocus() {
         return focus;
@@ -410,6 +419,7 @@ public class User {
                 ", deptName='" + deptName + '\'' +
                 ", deptId=" + deptId +
                 ", focus='" + focus + '\'' +
+                ", attention='" + attention + '\'' +
                 '}';
     }
 }

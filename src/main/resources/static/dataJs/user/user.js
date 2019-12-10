@@ -14,7 +14,6 @@ let vm = new Vue({
                data: this.params
             }).then(resp=> {
                 this.pageInfo=resp.data;
-                console.log(this.pageInfo);
             }).catch(function (error) {
                 console.log(error);
             })

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -17,7 +18,8 @@ public class UserConteroller {
     UserService userService;
 
     @RequestMapping("lookUser")
-    public PageInfo<User> lookUser(@RequestBody Map<String,Object> params){
+    public PageInfo<User> lookUser(@RequestBody Map<String,Object> params, HttpSession session){
+        session.getAttribute("userId");
         return userService.LookUser(params);
     }
 
