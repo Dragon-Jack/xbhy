@@ -28,10 +28,19 @@ public class UserServiceImpl extends TserviceImpi<User> implements UserService {
         if (StringUtils.isEmpty(params.get("pageSize"))) {
             params.put("pageSize", 5);
         }
-        PageHelper.startPage((Integer) params.get("pageNum"),(Integer) params.get("pageSize"));
+        PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
 
         List<User> realName = userMapper.LookUser(params);
         PageInfo<User> objectPageInfo = new PageInfo<>(realName);
         return objectPageInfo;
+    }
+
+    @Override
+    public User toLookUser(String id) {
+        User user;
+        user = userMapper.selectByPrimaryKey(id);
+        String integer = userMapper.FocusNum(id);
+        user.setFocus(integer);
+        return user;
     }
 }

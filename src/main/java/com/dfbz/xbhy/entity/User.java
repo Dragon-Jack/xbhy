@@ -3,6 +3,7 @@ package com.dfbz.xbhy.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Table(name = "user")
@@ -28,7 +29,7 @@ public class User {
     /**
      * 真实姓名
      */
-    @Column(name = "real_name")
+    @Column(name = "`real_name`")
     private String realName;
 
     /**
@@ -95,6 +96,19 @@ public class User {
     /**
      * @return id
      */
+
+    @Transient
+    private String focus;
+
+
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -390,11 +404,12 @@ public class User {
                 ", desc='" + desc + '\'' +
                 ", registerTime=" + registerTime +
                 ", loginTime=" + loginTime +
-                ", Pic='" + pic + '\'' +
+                ", pic='" + pic + '\'' +
                 ", look=" + look +
                 ", isSecret='" + isSecret + '\'' +
                 ", deptName='" + deptName + '\'' +
                 ", deptId=" + deptId +
+                ", focus='" + focus + '\'' +
                 '}';
     }
 }

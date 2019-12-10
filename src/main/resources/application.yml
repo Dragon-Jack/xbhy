@@ -1,3 +1,8 @@
+#logging:
+#  path: e:/mylog    #添加日志
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #版本不同，对应的配置项可能不同
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -8,3 +13,4 @@ spring:
     password: 123456
   cache:
     type: redis
+

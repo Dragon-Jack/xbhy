@@ -20,10 +20,20 @@ public class usertest {
     UserService userService;
     @Test
     public void testuser(){
-//        System.out.println(userMapper.LookUser("东"));
         HashMap<String, Object> o = new HashMap<>();
-        o.put("realName", "");
-        PageInfo<User> userPageInfo = userService.LookUser(o);
-        System.out.println(userPageInfo);
+        o.put("realName","东");
+        System.out.println(userMapper.LookUser(o));
+
+//        List<User> users = userMapper.selectAll();
+//        for (User user : users) {
+//            System.out.println(user);
+//        }
+    }
+
+    @Test
+    public void testFocus(){
+        User user = userService.toLookUser("1");
+
+        System.out.println(user);
     }
 }

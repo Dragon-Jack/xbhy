@@ -43,7 +43,7 @@
                         <input id="inlineFormInput" v-model="params.realName" placeholder="按名字查找" class="mr-sm-3 form-control">
                     </div>
                     <div class="form-group">
-                        <input type="button" @click="lookUser" value="查询" class="btn btn-primary">
+                        <input type="button" @click="lookUser(1,pageInfo.pageSize)" value="查询" class="btn btn-primary">
                     </div>
                 </form>
 
@@ -69,7 +69,7 @@
                         <td>{{u.age}}</td>
                         <td>{{u.desc}}</td>
                         <td>
-                            <input type="button" value="详细信息" class="btn-xs btn-primary userDetail">
+                            <input type="button" v-if="u.isSecret!=0" @click="toLookUser(u.id)" value="详细信息" class="btn-xs btn-primary userDetail">
                         </td>
                         <td>
                             <input type="checkbox" class="checkbox-template">
@@ -79,23 +79,20 @@
                 </table>
 
                 <nav class="text-center" aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <span class="badge badge-info">
+				当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+			</span>
+
+    <div>
+        <div class="pagination no-margin pull-right clearfix">
+            <li class="prev"><a @click="lookUser(1,pageInfo.pageSize)">首页</a></li>
+            <li ><a @click="lookUser(pageInfo.prePage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=1">上一页</a></li>
+            <li :class="num==pageInfo.pageNum?'active':''" v-for="num in pageInfo.navigatepageNums"><a @click="lookUser(num,pageInfo.pageSize)">{{num}}</a></li>
+            <li :class="pageInfo.pageNum==pageInfo.pages?'next disabled': 'next'"><a @click="lookUser(pageInfo.nextPage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=pageInfo.pages">下一页</a></li>
+            <li class="next"><a @click="lookUser(pageInfo.pages,pageInfo.pageSize)">尾页</a></li>
+        </div>
+
+    </div>
                 </nav>
             </div>
         </section>
@@ -127,7 +124,7 @@
 <script type="text/javascript" src="js/axios.js"></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 
-<script type="text/javascript" src="dataJs/user.js"></script>
+<script type="text/javascript" src="dataJs/user/user.js"></script>
 
 
 <script>
