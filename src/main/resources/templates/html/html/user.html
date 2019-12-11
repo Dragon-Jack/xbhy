@@ -75,7 +75,7 @@
 
                         </td>
                         <td>
-                            <input type="checkbox" v-model="u.attention=='1'" class="checkbox-template">
+                            <input type="checkbox" v-model="u.attention=='1'" @click="toAttention(u.attention,u.id)" class="checkbox-template">
                         </td>
                     </tr>
                     </tbody>

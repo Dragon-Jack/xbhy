@@ -2,28 +2,27 @@ let vm = new Vue({
     el: '#all',
     data: {
         params: {},
-        pageInfo:{}
+        pageInfo: {}
     },
     methods: {
-        lookUser: function (pageNum,pageSize) {
-            this.params.pageNum=pageNum;
-            this.params.pageSize=pageSize;
+        lookUser: function (pageNum, pageSize) {
+            this.params.pageNum = pageNum;
+            this.params.pageSize = pageSize;
             axios({
                 url: 'lookUser',
-                method:"post",
-               data: this.params
-            }).then(resp=> {
-                this.pageInfo=resp.data;
-                console.log(this.pageInfo);
+                method: "post",
+                data: this.params
+            }).then(resp => {
+                this.pageInfo = resp.data;
             }).catch(function (error) {
                 console.log(error);
             })
 
         },
-        toLookUser:function (id) {
+        toLookUser: function (id) {
             axios({
                 url: 'toLookUser',
-                params: {id:id}
+                params: {id: id}
             }).then(function (resp) {
                 layer.appVersion = resp.data;
                 layer.open({
@@ -38,6 +37,20 @@ let vm = new Vue({
 
             }).catch(function (e) {
                 console.log(e);
+            })
+        },
+        toAttention: function (yesId, focusId) {
+            axios({
+                url: 'toAttention',
+                params: {
+                    yesId: yesId,
+                    focusId: focusId
+                }
+            }).then(resp=> {
+                layer.msg(resp.data.msg);
+                this.lookUser();
+            }).catch(function (e) {
+                console.log(e)
             })
         }
     },

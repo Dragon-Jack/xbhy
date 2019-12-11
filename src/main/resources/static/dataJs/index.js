@@ -23,7 +23,7 @@ let vm = new Vue({
         axios({
             url: 'getSession'
         }).then(function (resp) {
-            if (resp.data == "userId") {
+            if (resp.data=="Free") {
                 location.href="home";
             }
         }).catch(function (e) {
