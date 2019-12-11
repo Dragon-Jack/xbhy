@@ -1,6 +1,7 @@
 package com.dfbz.xbhy.service.Impl;
 
 import com.dfbz.xbhy.entity.User;
+import com.dfbz.xbhy.entity.UserFocus;
 import com.dfbz.xbhy.mapper.UserFocusMapper;
 import com.dfbz.xbhy.mapper.UserMapper;
 import com.dfbz.xbhy.service.UserService;
@@ -24,7 +25,7 @@ public class UserServiceImpl extends TserviceImpi<User> implements UserService {
     UserFocusMapper focusMapper;
 
     @Override
-    public PageInfo<User> LookUser(Map<String, Object> params) {
+    public PageInfo<User> LookUser(Map<String, Object> params, HttpSession session) {
         if (StringUtils.isEmpty(params.get("pageNum"))) {
             params.put("pageNum", 1);
         }
@@ -33,8 +34,21 @@ public class UserServiceImpl extends TserviceImpi<User> implements UserService {
         }
         PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
 
+        //所有用
         List<User> realName = userMapper.LookUser(params);
+        //被关注的用户
+        List<UserFocus> userId = focusMapper.attention(session.getAttribute("userId").toString());
+        for (User user : realName) {
+            for (UserFocus userFocus : userId) {
+                if (user.getId().equals(userFocus.getUserFocusId())) {
+                    user.setAttention("1");
+                }
+            }
+        }
+
         PageInfo<User> objectPageInfo = new PageInfo<>(realName);
+
+
         return objectPageInfo;
     }
 
@@ -47,4 +61,6 @@ public class UserServiceImpl extends TserviceImpi<User> implements UserService {
 
         return user;
     }
+
+
 }

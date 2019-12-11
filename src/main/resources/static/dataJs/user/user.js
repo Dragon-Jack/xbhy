@@ -14,6 +14,7 @@ let vm = new Vue({
                data: this.params
             }).then(resp=> {
                 this.pageInfo=resp.data;
+                console.log(this.pageInfo);
             }).catch(function (error) {
                 console.log(error);
             })
@@ -39,7 +40,6 @@ let vm = new Vue({
                 console.log(e);
             })
         }
-
     },
     created: function () {
         this.lookUser();//在vue创建后调用函数返回数据

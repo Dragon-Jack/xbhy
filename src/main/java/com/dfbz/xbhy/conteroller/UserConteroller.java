@@ -20,7 +20,7 @@ public class UserConteroller {
     @RequestMapping("lookUser")
     public PageInfo<User> lookUser(@RequestBody Map<String,Object> params, HttpSession session){
         session.getAttribute("userId");
-        return userService.LookUser(params);
+        return userService.LookUser(params,session);
     }
 
     @RequestMapping("toLookUser")
@@ -28,4 +28,5 @@ public class UserConteroller {
 
         return userService.toLookUser(id);
     }
+
 }

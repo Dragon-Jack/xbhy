@@ -69,10 +69,13 @@
                         <td>{{u.age}}</td>
                         <td>{{u.desc}}</td>
                         <td>
+
                             <input type="button" v-if="u.isSecret==1" @click="toLookUser(u.id)" value="详细信息" class="btn-xs btn-primary userDetail">
+
+
                         </td>
                         <td>
-                            <input type="checkbox" @click="" class="checkbox-template">
+                            <input type="checkbox" v-model="u.attention=='1'" class="checkbox-template">
                         </td>
                     </tr>
                     </tbody>

@@ -100,7 +100,7 @@ public class User {
     @Transient
     private String focus;
     @Transient
-    private String attention;
+    private String attention="0";
 
     public String getAttention() {
         return attention;
