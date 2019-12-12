@@ -3,6 +3,7 @@ package com.dfbz.xbhy.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "userfocus")
 public class UserFocus {
@@ -25,6 +26,18 @@ public class UserFocus {
      *
      * @return user_id - 用户id
      */
+
+    @Transient
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Integer getUserId() {
         return userId;
     }

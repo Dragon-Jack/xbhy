@@ -4,6 +4,7 @@ import com.dfbz.xbhy.entity.User;
 import com.dfbz.xbhy.entity.UserFocus;
 import com.dfbz.xbhy.mapper.UserFocusMapper;
 import com.dfbz.xbhy.mapper.UserMapper;
+import com.dfbz.xbhy.service.UserFocusService;
 import com.dfbz.xbhy.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ public class usertest {
     UserService userService;
     @Autowired
     UserFocusMapper focusMapper;
+    @Autowired
+    UserFocusService focusService;
 
     @Autowired
     HttpSession session;
@@ -55,7 +58,9 @@ public class usertest {
     @Test
     public void focusMapper() {
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
-
-
+        List<UserFocus> userFoci = focusMapper.myUser("1");
+        for (UserFocus userFocus : userFoci) {
+            System.out.println(userFocus);
+        }
     }
 }

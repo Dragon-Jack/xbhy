@@ -1,15 +1,13 @@
 package com.dfbz.xbhy.conteroller;
 
 import com.dfbz.xbhy.entity.User;
+import com.dfbz.xbhy.entity.UserFocus;
 import com.dfbz.xbhy.result.Result;
 import com.dfbz.xbhy.service.UserFocusService;
 import com.dfbz.xbhy.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -47,5 +45,27 @@ public class UserConteroller {
         }
         return result;
     }
+
+
+    @RequestMapping("myUser")
+    public PageInfo<UserFocus> myUser(@RequestBody Map<String,Object> params,HttpSession session){
+        return focusService.myUser(params,session);
+    }
+
+    @RequestMapping("lookmyUser")
+    public User lookmyUser(String id){
+        return userService.toLookUser(id);
+    }
+
+    @RequestMapping("delMyUser")
+    public Result delMyUser(Integer uId,Integer focusId){
+        Result result = new Result();
+        focusService.delAttention(uId, focusId);
+        result.setMsg("取消关注");
+
+        return result;
+    }
+
+
 
 }

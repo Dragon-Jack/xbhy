@@ -38,7 +38,7 @@ public class LoginConteroller {
         if (params.containsKey("checkbox") && params.get("checkbox").equals(true)) {       //勾选了免密登录
             if (!StringUtils.isEmpty(params.get("checkCode"))&&params.get("checkCode").equals(session.getAttribute("code"))) {    //校验验证码
                 if (u.getPassword().equals(encrypt)) {    //验证密码
-                    session.setAttribute("Free", u.getId());
+                    session.setAttribute("Free", "Free");
                     session.setMaxInactiveInterval(7*60*60);
                     return null;
                 } else {
@@ -66,13 +66,14 @@ public class LoginConteroller {
         }
     }
 
+
     @RequestMapping("getSession")
     public String getSession(HttpSession session) {
-        Enumeration<String> attributeNames = session.getAttributeNames();
-        String s=null;
-        while (attributeNames.hasMoreElements()){
-            s = attributeNames.nextElement();
-        }
-            return s;
+//        Enumeration<String> attributeNames = session.getAttributeNames();
+//        String s=null;
+//        while (attributeNames.hasMoreElements()){
+//            s = attributeNames.nextElement();
+//        }
+        return session.getAttribute("Free").toString();
     }
 }

@@ -3,12 +3,20 @@ package com.dfbz.xbhy.conteroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class JumpConteroller{
 
     //登录
     @RequestMapping("")
     public String toLogin(){
+        return "html/index";
+    }
+    //退出登录
+    @RequestMapping("Logout")
+    public String Logout(HttpSession session){
+        session.removeAttribute("Free");
         return "html/index";
     }
     //忘记密码

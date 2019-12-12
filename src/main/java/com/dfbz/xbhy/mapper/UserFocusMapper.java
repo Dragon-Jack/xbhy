@@ -14,4 +14,11 @@ import java.util.Map;
 public interface UserFocusMapper extends Mapper<UserFocus> {
     @SelectProvider(type = UserFocusMapperImpl.class,method = "attention")
     List<UserFocus> attention(String id);
+
+
+    @SelectProvider(type =  UserFocusMapperImpl.class,method = "myUser")
+    List<UserFocus> myUser(String id);
+
+
+
 }

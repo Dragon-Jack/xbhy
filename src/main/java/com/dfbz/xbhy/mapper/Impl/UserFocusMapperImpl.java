@@ -16,4 +16,21 @@ public class UserFocusMapperImpl {
         }
         return sb.toString();
     }
+    
+    public String myUser(String id){
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT " +
+                "uf.user_id, " +
+                "uf.user_focus_id, " +
+                "u.real_name username " +
+                "FROM " +
+                "userfocus uf " +
+                "LEFT JOIN " +
+                "`user` u " +
+                "on " +
+                "uf.user_focus_id=u.id " +
+                "where " +
+                "user_id=#{id} ");
+        return sb.toString();
+    }
 }

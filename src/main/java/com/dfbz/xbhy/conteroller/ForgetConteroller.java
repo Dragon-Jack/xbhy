@@ -25,9 +25,9 @@ public class ForgetConteroller {
         Integer code = (int) ((Math.random() * 9 + 1) * 1000);
         Email.send(email, code);
         session.setAttribute("email", code);
-
+        session.setMaxInactiveInterval(60);
         Result result = new Result();
-        result.setMsg("发送成功");
+        result.setMsg("发送成功,有效期60秒");
         return result;
     }
 
