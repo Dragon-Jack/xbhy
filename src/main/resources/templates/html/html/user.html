@@ -71,6 +71,7 @@
                         <td>
 
                             <input type="button" v-if="u.isSecret==1" @click="toLookUser(u.id)" value="详细信息" class="btn-xs btn-primary userDetail">
+                            <input type="button" v-else value="已设隐私" class="btn-xs btn-primary userDetail">
 
 
                         </td>

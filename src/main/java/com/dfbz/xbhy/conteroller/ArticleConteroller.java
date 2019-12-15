@@ -1,17 +1,65 @@
 package com.dfbz.xbhy.conteroller;
 
+import com.dfbz.xbhy.entity.Article;
+import com.dfbz.xbhy.entity.Favorite;
+import com.dfbz.xbhy.mapper.FavoriteMapper;
+import com.dfbz.xbhy.result.Result;
+import com.dfbz.xbhy.service.ArticleService;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 public class ArticleConteroller {
+    @Autowired
+    ArticleService articleService;
+    @Autowired
+    FavoriteMapper favoriteMapper;
+    @RequestMapping("/selectArticle")
+    public PageInfo<Article> selectArticle(@RequestBody Map<String,Object> params) {
+        return articleService.selectArticle(params);
+    }
+    @RequestMapping("/detail")
+    public Article selectArticleDetail(String id) {
+        return articleService.selectDetail(id);
+    }
 
-    @RequestMapping("selectarticle")
-    public void selectarticle(@RequestParam Map<String, Object> params) {
-        System.out.println(params);
+    @RequestMapping("/common")
+    public List<Favorite> selectCommonArticle(String id) {
+        return articleService.selectCommonArticle(id);
+    }
 
+    @RequestMapping("/myFavorite")
+    public String myFavorite(HttpSession session, @RequestParam String aid) {
+        return articleService.myFavorite(session.getAttribute("userId"),aid);
+    }
+
+    @RequestMapping("/add")
+    public Result add(HttpSession session, @RequestParam Integer aid) {
+        Result result = new Result();
+        Favorite favorite = new Favorite();
+        favorite.setuId(Integer.valueOf((Integer) session.getAttribute("userId")));
+        favorite.setaId(aid);
+        favoriteMapper.insert(favorite);
+        result.setMsg("收藏成功");
+        return result;
+    }
+
+    @RequestMapping("/del")
+    public Result del(HttpSession session, @RequestParam Integer aid) {
+        Result result = new Result();
+        Favorite favorite = new Favorite();
+        favorite.setuId(Integer.valueOf((Integer) session.getAttribute("userId")));
+        favorite.setaId(aid);
+        favoriteMapper.delete(favorite);
+        result.setMsg("取消成功");
+        return result;
     }
 }

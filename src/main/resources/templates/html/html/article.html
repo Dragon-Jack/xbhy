@@ -21,7 +21,6 @@
 <header id="header" class="header">
 
 </header>
-
 <div id="all" class="d-flex align-items-stretch">
     <!-- Sidebar Navigation-->
     <nav id="sidebar">
@@ -44,10 +43,10 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="inlineFormInput" class="sr-only">Name</label>
-                            <input id="inlineFormInput" v-model="params.inquire" type="text" placeholder="按标题名字查找" class="mr-sm-3 form-control">
+                            <input id="inlineFormInput" v-model="params.title" type="text" placeholder="按标题名字查找" class="mr-sm-3 form-control">
                         </div>
                         <div class="form-group">
-                            <input type="button" @click="selectAll" value="查询" class="btn btn-primary">
+                            <input type="button" @click="selectAll(1,pageInfo.pageSize)" value="查询" class="btn btn-primary">
                         </div>
                     </form>
 
@@ -55,51 +54,34 @@
 
                 </div>
 
-                <ul>
+                <ul v-for="art in pageInfo.list">
                     <li class="list-group-item">
  
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
+                        <p style="color: skyblue" @click="detail(art.id)" v-html="art.title">{{art.title}}</p>
+                        <p class="h6"><strong>作者：</strong>{{art.publishRealName}}</p>
+                        <p class="h6"><strong>时间：</strong>{{art.publishDate}}</p>
+                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis" v-html="art.content"></p>
                     </li>
 
-                    <li class="list-group-item">
-   
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
-                    </li>
 
-                    <li class="list-group-item">
-
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
-                    </li>
 
                 </ul>
 
                 <nav class="text-center" aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
+            <span class="badge badge-info">
+				当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+			</span>
+
+                    <div>
+                        <div class="pagination no-margin pull-right clearfix">
+                            <li class="prev"><a @click="selectAll(1,pageInfo.pageSize)" v-if="pageInfo.pageNum!=1">首页</a></li>
+                            <li ><a @click="selectAll(pageInfo.prePage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=1">上一页</a></li>
+                            <li :class="num==pageInfo.pageNum?'active':''" v-for="num in pageInfo.navigatepageNums"><a @click="selectAll(num,pageInfo.pageSize)">{{num}}</a></li>
+                            <li :class="pageInfo.pageNum==pageInfo.pages?'next disabled': 'next'"><a @click="selectAll(pageInfo.nextPage,pageInfo.pageSize)" v-if="pageInfo.pageNum!=pageInfo.pages">下一页</a></li>
+                            <li class="next"><a @click="selectAll(pageInfo.pages,pageInfo.pageSize)" v-if="pageInfo.pageNum!=pageInfo.pages">尾页</a></li>
+                        </div>
+
+                    </div>
                 </nav>
             </div>
         </section>
