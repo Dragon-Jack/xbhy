@@ -1,7 +1,11 @@
 package com.dfbz.xbhy.mapper.Impl;
 
+import org.springframework.util.StringUtils;
+
+import java.util.Map;
+
 public class ArticleMapperImpl {
-    public String selectDetail(String id){
+    public String selectDetail(String id) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT " +
                 "a.id, " +
@@ -22,7 +26,8 @@ public class ArticleMapperImpl {
                 "a.id=#{id}");
         return sb.toString();
     }
-    public String selectDetailCount(String id){
+
+    public String selectDetailCount(String id) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT " +
                 "COUNT(*) count " +
@@ -33,7 +38,7 @@ public class ArticleMapperImpl {
         return sb.toString();
     }
 
-    public String selectCommonArticle(String id){
+    public String selectCommonArticle(String id) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT " +
                 "f.u_id, " +
@@ -51,7 +56,7 @@ public class ArticleMapperImpl {
         return sb.toString();
     }
 
-    public String myFavorite(Object uid,String aid){
+    public String myFavorite(Object uid, String aid) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT " +
                 "u_id, " +
@@ -62,6 +67,30 @@ public class ArticleMapperImpl {
                 "u_id=#{uid}  " +
                 "and " +
                 "a_id=#{aid} ");
+        return sb.toString();
+    }
+
+    public String myArt(Integer id, Map<String,Object> params) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT " +
+                "a.*, " +
+                "u.real_name " +
+                "FROM " +
+                "favorite f " +
+                "LEFT JOIN  " +
+                "article a " +
+                "on " +
+                "f.a_id=a.id " +
+                "LEFT JOIN " +
+                "`user` u " +
+                "on " +
+                "u_id=u.id " +
+                "where " +
+                "u_id=#{id} ");
+
+        if (params.containsKey("title")&& !StringUtils.isEmpty(params.get("title"))) {
+            sb.append("and a.title like CONCAT('%','" + params.get("title") + "','%')");
+        }
         return sb.toString();
     }
 }

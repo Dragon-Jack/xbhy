@@ -40,6 +40,7 @@ let vm = new Vue({
             })
         },
         toAttention: function (yesId, focusId) {
+            console.log(this.pageInfo.list);
             axios({
                 url: 'toAttention',
                 params: {
@@ -55,6 +56,7 @@ let vm = new Vue({
         }
     },
     created: function () {
+        console.log(this.pageInfo.list);
         this.lookUser();//在vue创建后调用函数返回数据
     }
 });

@@ -24,7 +24,7 @@
     </nav>
 </header>
 
-<div class="d-flex align-items-stretch">
+<div id="all" class="d-flex align-items-stretch">
     <!-- Sidebar Navigation-->
     <nav id="sidebar">
 
@@ -44,11 +44,11 @@
                 <div class="myTitle">
                     <form class="form-inline">
                         <div class="form-group">
-                            <label for="inlineFormInput" class="sr-only">Name</label>
-                            <input id="inlineFormInput" type="text" placeholder="按标题名字查找" class="mr-sm-3 form-control">
+                            <label class="sr-only">Name</label>
+                            <input v-model="params.title" type="text" placeholder="按标题名字查找" class="mr-sm-3 form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="查询" class="btn btn-primary">
+                            <input type="button" @click="selectAll(1,pageSize)"  value="查询" class="btn btn-primary">
                         </div>
                     </form>
 
@@ -56,49 +56,20 @@
 
                 </div>
 
-                <ul>
+                <ul v-for="a in pageInfo.list">
                     <li class="list-group-item">
                         <div style="float: right;">
-                            <span><strong>收藏数：</strong>100</span>
+                            <span><strong>收藏数：</strong>{{a.count}}</span>
                             <span>&nbsp;</span>
                             <span>&nbsp;</span>
                             <span>&nbsp;</span>
-                            <span><strong>浏览数：</strong>13052021</span>
+                            <span><strong>浏览数：</strong>{{a.browseCount}}</span>
                         </div>
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
+                        <a @click="lookArt(a.id)">{{a.title}}？</a>
+                        <p class="h6"><strong>作者：</strong>{{a.publishRealName}}</p>
+                        <p class="h6"><strong>时间：</strong>{{a.publishDate}}</p>
+                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">{{a.content}}</p>
                     </li>
-
-                    <li class="list-group-item">
-                        <div style="float: right;">
-                            <span><strong>收藏数：</strong>100</span>
-                            <span>&nbsp;</span>
-                            <span>&nbsp;</span>
-                            <span>&nbsp;</span>
-                            <span><strong>浏览数：</strong>13052021</span>
-                        </div>
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
-                    </li>
-
-                    <li class="list-group-item">
-                        <div style="float: right;">
-                            <span><strong>收藏数：</strong>100</span>
-                            <span>&nbsp;</span>
-                            <span>&nbsp;</span>
-                            <span>&nbsp;</span>
-                            <span><strong>浏览数：</strong>13052021</span>
-                        </div>
-                        <a href="article_detail.html">如何做一名合格的Java工程师？</a>
-                        <p class="h6"><strong>作者：</strong>小标</p>
-                        <p class="h6"><strong>时间：</strong>2019-10-30 09:52:12</p>
-                        <p style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis">做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力，做一名Java工程师需要付出非常大的努力 做一名工程师</p>
-                    </li>
-
                 </ul>
 
                 <nav class="text-center" aria-label="Page navigation">
@@ -147,7 +118,7 @@
 <script type="text/javascript" src="layer/layer.js"></script>
 
 
-<!--<script type="text/javascript" src="dataJs/user/article.js"></script>-->
+<script type="text/javascript" src="dataJs/user/artCollect.js"></script>
 </body>
 
 <script>

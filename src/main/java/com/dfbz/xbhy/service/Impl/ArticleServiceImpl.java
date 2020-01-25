@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -92,12 +93,32 @@ public class ArticleServiceImpl extends TserviceImpi<Article> implements Article
 
     @Override
     public List<Favorite> selectCommonArticle(String id) {
+
         return articleMapper.selectCommonArticle(id);
     }
 
     @Override
     public String myFavorite(Object uid, String aid) {
         return articleMapper.myFavorite(uid,aid);
+    }
+
+    @Override
+    public PageInfo<Article> myArt(Integer id, Map<String, Object> params) {
+        if (StringUtils.isEmpty(params.get("pageNum"))) {
+            params.put("pageNum", 1);
+        }
+        if (StringUtils.isEmpty(params.get("pageSize"))) {
+            params.put("pageSize", 5);
+        }
+        PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+        List<Article> articles = articleMapper.myArt(id, params);
+
+        for (Article article : articles) {
+            String s = articleMapper.selectDetailCount(article.getId());
+            article.setCount(s);
+        }
+        PageInfo<Article> articlePageInfo = new PageInfo<>(articles);
+        return articlePageInfo;
     }
 
 }

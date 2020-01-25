@@ -1,13 +1,16 @@
 package com.dfbz.xbhy.test;
 
 
+import com.dfbz.xbhy.entity.Article;
 import com.dfbz.xbhy.entity.Favorite;
 import com.dfbz.xbhy.mapper.ArticleMapper;
 import com.dfbz.xbhy.service.ArticleService;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -32,7 +35,7 @@ public class testArticle {
     }
     @Test
     public void TEset(){
-        String s = articleService.myFavorite(1, "1");
-        System.out.println(s);
+
+
     }
 }

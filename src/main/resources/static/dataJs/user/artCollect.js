@@ -9,57 +9,39 @@ let vm = new Vue({
             this.params.pageNum = pageNum;
             this.params.pageSize = pageSize;
             axios({
-                url: '/selectArticle',
+                url: '/myArt',
                 method: "post",
                 data: this.params
-            }).then(response => {
-                this.pageInfo = response.data;
+            }).then(resp => {
+                console.log(resp.data);
+                this.pageInfo = resp.data;
             }).catch(function (error) {
                 console.log(error);
             })
         },
-        find: function () {
-            axios({
-                url: '/title',
-                params: {title: this.title}
-            }).then(function () {
-
-            }).catch(function (e) {
-                console.log(e);
-            })
-        },
-        detail: function (id) {
+        lookArt: function (id) {
             axios({
                 url: 'detail',
-                params:{id:id}
+                params: {id: id}
             }).then(function (resp) {
-                layer.params=resp.data;
+                layer.params = resp.data;
                 layer.open({
                     type: 2,
                     title: "文章内容",
                     content: "article_detail",
                     area: ["60%", "80%"],
                     end: () => {
-
+                        if (layer.close(index())) {
+                            this.selectAll();
+                        }
                     }
                 })
             }).catch(function (e) {
-                console.log(e)
-            })
-        },
-        addArt:function () {
-            layer.open({
-                type: 2,
-                title: "资质审核",
-                content: "article_add",
-                area: ["60%", "80%"],
-                end: () => {
-                    this.selectAll();
-                }
+                console.log(e);
             })
         }
     },
     created: function () {
-        this.selectAll();
+        this.selectAll();//在vue创建后调用函数返回数据
     }
 });

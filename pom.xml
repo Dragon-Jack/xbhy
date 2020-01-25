@@ -106,11 +106,33 @@
             <version>1.4.7</version>
         </dependency>
 
-        <!-- solr -->
+        <!--  solr  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-solr</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <!--alibaba的fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
+
+        <!--&lt;!&ndash;  mongoDb  &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<
+            groupId>org.mongodb</groupId>-->
+            <!--<artifactId>mongodb-driver</artifactId>-->
+            <!--<version>3.6.3</version>-->
+        <!--</dependency>-->
+
     </dependencies>
 
     <build>

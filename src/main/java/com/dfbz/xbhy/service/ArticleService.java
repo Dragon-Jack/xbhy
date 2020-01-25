@@ -4,6 +4,7 @@ import com.dfbz.xbhy.entity.Article;
 import com.dfbz.xbhy.entity.Favorite;
 import com.github.pagehelper.PageInfo;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -16,4 +17,6 @@ public interface ArticleService extends Tservice<Article> {
     List<Favorite> selectCommonArticle(String id);
 
     String myFavorite(Object uid,String aid);
+
+    PageInfo<Article> myArt(Integer id, Map<String,Object> params);
 }
